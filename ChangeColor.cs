@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
+
 
 
 public class ChangeColor : MonoBehaviour
 {
     public Renderer rend;
-    List<string> list = new List<string>();
+    List<string> list = new List<string>();  
     // this script demonstrates how to detect when this object has been used by a controller.  
 
     // it requires the object already have the VRTK_InteractableObject attached.  
@@ -21,18 +23,15 @@ public class ChangeColor : MonoBehaviour
 
     // Use this for initialization
 
-
     void OnEnable()
     {
         //make sure the object has the VRTK script attached... 
-        
+       
         if (GetComponent<VRTK_InteractableObject>() == null)
         {
             Debug.LogError("Change Color is required to be attached to an Object that has the VRTK_InteractableObject script attached to it");
             return;
         }
-
-        //subscribe to the event
         GetComponent<VRTK_InteractableObject>().InteractableObjectUsed += ChangeColor_InteractableObjectUsed;
         GetComponent<VRTK_InteractableObject>().InteractableObjectUnused += ChangeColor_InteractableObjectUnused;
 
@@ -53,15 +52,13 @@ public class ChangeColor : MonoBehaviour
     {
         rend = GetComponent<Renderer>();
         rend.material.color = Color.blue;
-        //Debug.Log(sender + "Im Unused");
     }
 
     private void ChangeColor_InteractableObjectUsed(object sender, InteractableObjectEventArgs e)
     {
         rend = GetComponent<Renderer>();
         rend.material.color = Color.red;
-        Debug.Log (sender.ToString() + Time.realtimeSinceStartup.ToString());
-        //Debug.Log(sender + "+Im Used");     
+           
     }
 
     
